@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.MyContainer{
+    @apply xl:w-[1400px] md:w-[90%] sm:w-[95%] mx-auto
+}
+
+.active{
+    @apply text-[#f5864e] font-semibold !important
+}
+.default{
+    @apply font-semibold
+}
