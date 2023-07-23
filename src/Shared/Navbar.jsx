@@ -8,6 +8,8 @@ const Navbar = () => {
         <li>  <NavLink className={({ isActive }) => isActive ? "active" : "default"} to={'/my-college'}>My College</NavLink></li>
 
     </>
+    // TODO: Make dynamic User
+    const user = false;
     return (
         <div className="navbar MyContainer bg-base-100 text-white ">
             <div className="navbar-start">
@@ -27,7 +29,28 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+
+                {
+                    user ? <div className="dropdown dropdown-end z-20">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                            <li>
+                                <a className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </a>
+                            </li>
+                            <li><a>Settings</a></li>
+                            <li><a>Logout</a></li>
+                        </ul>
+                    </div> :
+                        <NavLink className={({ isActive }) => isActive ? "active  bg-[#2A323C] py-2 px-4   rounded-md " : "default hover:bg-[#2A323C] hover:text-gray-400 py-2 px-4 rounded-md"} to={'/login'}>Login</NavLink>
+                }
+
             </div>
         </div>
     );

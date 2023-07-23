@@ -1,9 +1,11 @@
+import CollegesSection from "./CollegesSection";
 import Banner from "./HomeComponents/Banner";
 
 const Home = () => {
     return (
-        <div>
+        <div className="MyContainer">
             <Banner />
+            <CollegesSection />
         </div>
     );
 };
