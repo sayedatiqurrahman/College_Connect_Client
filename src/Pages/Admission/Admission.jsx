@@ -21,11 +21,25 @@ const Admission = () => {
                         <h2 className="card-title text-3xl font-semibold text-white">{college.name}</h2>
 
                         <div className="card-actions">
-                            <button className='text-[#ff6f26] border-2 font-semibold border-[#ff6f26] px-4 py-2  rounded-lg hover:bg-[#ff6f26] hover:text-white'>Apply Now</button>
+                            <button className='text-[#ff6f26] border-2 font-semibold border-[#ff6f26] px-4 py-2  rounded-lg hover:bg-[#ff6f26] hover:text-white'
+                                onClick={() => window.my_modal_5.showModal()}
+                            >Apply Now</button>
                         </div>
                     </div>
                 </div>)}
             </div>
+            {/* the modal code */}
+            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                <form method="dialog" className="modal-box">
+                    <h3 className="font-bold text-lg">Hello!</h3>
+                    <p className="py-4">Press ESC key or click the button below to close</p>
+                    <div className="modal-action">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn">Close</button>
+                    </div>
+                </form>
+            </dialog>
+
         </div>
     );
 };
