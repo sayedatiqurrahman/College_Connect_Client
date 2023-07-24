@@ -1,11 +1,13 @@
 import MainLayout from "./Layout/MainLayout"
+import AuthProvider from "./provider/AuthProvider"
 
 function App() {
 
   return (
     <>
-
-      <MainLayout />
+      <AuthProvider>           
+        <MainLayout />
+      </AuthProvider>
     </>
   )
 }

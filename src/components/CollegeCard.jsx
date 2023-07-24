@@ -1,6 +1,7 @@
 import { MdOutlineLocationOn } from "react-icons/md";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import Rating from "react-rating"
 
 
 const CollegeCard = ({ college, collegePage }) => {
@@ -11,7 +12,14 @@ const CollegeCard = ({ college, collegePage }) => {
         <div className="card card-compact w-96 bg-base-100 shadow-xl text-start">
             <figure><img src={image} className="h-52 w-full" alt={name} /></figure>
             <div className="card-body">
-                <h2 className="card-title text-2xl">{name}</h2>
+                <h2 className="card-title text-2xl flex items-center flex-wrap w-full">{name} <span className="text-base">  ({rating})
+                    <Rating className="mt-2 text-amber-600 ml-2"
+                        readonly
+                        placeholderRating={rating}
+                        emptySymbol={<FaRegStar />}
+                        placeholderSymbol={<FaStar />}
+                        fullSymbol={<FaStar />}
+                    /></span></h2>
                 <p className="font-medium flex gap-1">
                     <MdOutlineLocationOn size={20} className="text-[#ff6f26]" /> {location}</p>
                 <p>{description}</p>
@@ -21,6 +29,7 @@ const CollegeCard = ({ college, collegePage }) => {
 
                     {collegePage && <div className="mt-2">
                         <p><b>Research Quantity:</b> <span className='text-[#ff6f26]'>{research_count}</span></p>
+
                     </div>
 
                     }
