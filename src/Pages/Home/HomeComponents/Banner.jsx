@@ -46,7 +46,7 @@ const Banner = () => {
                             <p className='text-lg mt-5 max-w-md mb-4 text-[#c0bfbf]'>{college.description}</p>
 
                             {/* TODO: link dynamically */}
-                            <Link className='text-[#ff6f26] border-2 font-semibold border-[#ff6f26] px-4 py-2  rounded-full'>Learn More</Link>
+                            <Link to={`collegeDetails/${college._id}`} className='text-[#ff6f26] border-2 font-semibold border-[#ff6f26] px-4 py-2  rounded-full'>Learn More</Link>
 
                         </div>
                         <p className='bg-[#ff6f26] text-gray-800  font-semibold border-white absolute top-2 right-2 px-4 rounded-full'>Graduation Rate : <span className='text-green-900'>{college.student_success.graduation_rate}%</span></p>
