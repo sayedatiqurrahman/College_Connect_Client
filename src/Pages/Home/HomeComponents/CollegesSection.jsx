@@ -1,6 +1,6 @@
-import CollegesData from "../../DataHouse/CollegesData";
-import CollegeCard from "../../components/CollegeCard";
-import SectionTitle from "../../components/SectionTitle";
+import CollegesData from "../../../DataHouse/CollegesData";
+import CollegeCard from "../../../components/CollegeCard";
+import SectionTitle from "../../../components/SectionTitle";
 
 const CollegesSection = () => {
     const [TopColleges, Colleges, setSearchQ, searchQ] = CollegesData()
