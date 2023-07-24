@@ -7,7 +7,7 @@ const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     const GitProvider = new GithubAuthProvider();
     const [user, setUser] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const registerUser = (email, password) => {
         setLoading(true);
