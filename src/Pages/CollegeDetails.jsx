@@ -1,14 +1,17 @@
 import { MdOutlineLocationOn } from "react-icons/md";
 import { FaUserGraduate } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 
 const CollegeDetails = () => {
     const collegeData = useLoaderData();
-    const { name, image, location, description, student_success, events } = collegeData
+    const { name, image, location, description, student_success, events, contact_info, admission_process, sports_categories, research_works
+    } = collegeData
     console.log(collegeData);
     return (
         <div className="MyContainer">
+
+            <SectionTitle title={"College Details"} subTitle={"Explore the World of Education"} />
 
             <div style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(${image})`,
@@ -21,9 +24,9 @@ const CollegeDetails = () => {
 
 
                 {/* Internal Content */}
-                <h2 className='text-4xl text-center mt-4 font-bold underline'>College Details Page</h2>
 
-                <div className='flex flex-wrap gap-3  justify-center items-center mt-32 place-items-center'>
+
+                <div className='flex flex-wrap gap-3  justify-center items-center mt-40 place-items-center'>
 
                     <div>
                         <h2 className='text-5xl max-w-md font-bold text-[#ff6f26]'>{name}</h2>
@@ -59,6 +62,21 @@ const CollegeDetails = () => {
 
 
             </div>
+
+
+
+            {/* Admission */}
+            <div className="mt-[130px]">
+                <SectionTitle title={"Admission"} subTitle={"Admission Requirements"} />
+
+                <div className="mt-[50px] text-center">
+                    {admission_process}
+                    <a href={contact_info.website} target="_blank" className="btn w-40 mt-4 flex justify-center mx-auto border border-[#ff6f26] text-[#ff6f26] hover:bg-[#ff6f26] hover:text-white">Admission web </a>
+                </div>
+
+            </div>
+
+            {/* Toppers */}
             <div className="mt-[130px]">
                 <SectionTitle title={"Toppers"} subTitle={"Notable Alumni to this College"} />
 
@@ -97,7 +115,59 @@ const CollegeDetails = () => {
                 </div>
 
             </div>
+
+
+            {/* Research */}
+
+            <div className="mt-[130px]">
+                <SectionTitle title={"Research Work"} subTitle={"Exploring Knowledge Frontiers"} />
+
+                <div className="mt-[50px] text-center">
+                    {research_works}
+                    <a href={contact_info.website} target="_blank" className="btn w-40 mt-4 flex justify-center mx-auto border border-[#ff6f26] text-[#ff6f26] hover:bg-[#ff6f26] hover:text-white">Explore More </a>
+                </div>
+
+            </div>
+
+
+            {/* Sports */}
+
+            <div className="mt-[130px]">
+                <SectionTitle title={"Sports Categories"} subTitle={"Diverse Sports and Athletic Programs"} />
+
+                <div className="mt-[50px] text-center">
+                    {sports_categories}
+                    <a href={contact_info.website} target="_blank" className="btn w-40 mt-4 flex justify-center mx-auto border border-[#ff6f26] text-[#ff6f26] hover:bg-[#ff6f26] hover:text-white">Explore More </a>
+                </div>
+
+            </div>
+
+            {/* Contact */}
+
+            <div className="mt-[130px]">
+                <SectionTitle title={"Contact info"} subTitle={"Get in Touch: Contact Information and Inquiries"} />
+
+                <div className="mt-[50px] text-center flex justify-center place-content-center flex-wrap items-center">
+                    <div className="card mx-auto bg-base-100 shadow-xl">
+                        <div className="card-body">
+                            <h2 className="card-title text-[#ff6f26] text-center">Info of {name}</h2>
+                            <div className="text-left">
+                                <p>email: {contact_info.email}</p>
+                                <p>phone: {contact_info.phone}</p>
+                                <p>address: {contact_info.address}</p>
+                                <p>website: {contact_info.website}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <a href={contact_info.website} target="_blank" className="btn w-40 mt-4 flex justify-center mx-auto border border-[#ff6f26] text-[#ff6f26] hover:bg-[#ff6f26] hover:text-white">Explore More </a>
+                </div>
+
+            </div>
+
         </div >
+
+
 
     );
 };
