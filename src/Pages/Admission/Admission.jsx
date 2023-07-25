@@ -5,7 +5,6 @@ import { useContext, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { AuthContext } from "../../provider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
 
 const Admission = () => {
     const { user } = useContext(AuthContext)

@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaRegStar, FaStar, FaUserGraduate } from "react-icons/fa";
 import { AuthContext } from "../../provider/AuthProvider";
+import Rating from "react-rating";
+import { toast } from "react-hot-toast";
 
 const MyCollege = () => {
     const { user } = useContext(AuthContext)
     const [myCollege, SetCollege] = useState()
-
 
     if (user) {
         useEffect(() => {
@@ -15,6 +16,24 @@ const MyCollege = () => {
         }, [user])
     }
 
+    console.log(myCollege);
+
+    const [userRating, setUserRating] = useState(0);
+    const handleRatingChange = (newRating) => {
+        setUserRating(newRating);
+        if (user && myCollege && userRating > 0) {
+            const email = user.email
+            const updateData = { rating: newRating, email: email }
+            if (email && newRating) {
+                fetch("http://localhost:5000/updateRating", {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updateData)
+                }).then(res => res.json()).then(data => console.log(data)).catch(err => console.warn(err))
+            }
+
+        }
+    };
     return (
 
         <div>
@@ -72,6 +91,17 @@ const MyCollege = () => {
 
                 </div>
 
+                <div className="text-center">
+                    <h2 className="text-3xl text-[#ff6f26] mt-10">Rate Your Experience</h2>
+                    <Rating className="text-yellow-500"
+                        placeholderRating={userRating}
+                        emptySymbol={<FaRegStar size={40} />}
+                        placeholderSymbol={<FaStar size={40} />}
+                        fullSymbol={<FaStar size={40} />}
+                        onChange={handleRatingChange}
+                    />
+                    <p>Your rating: {userRating}</p>
+                </div>
 
 
                 {/* Admission */}
