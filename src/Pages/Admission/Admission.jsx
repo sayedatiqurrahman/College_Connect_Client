@@ -12,6 +12,7 @@ const Admission = () => {
     // Use Hook Form
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
+        console.log(data);
         if (data.subject === "Your Subject" || data.mobile_number === "" || data.image === "" || data.name === "") {
             toast.error("Please Fill up all input fields")
         } else {
@@ -35,7 +36,6 @@ const Admission = () => {
     const [cName, setCName] = useState("");
     const admissionApply = () => {
         if (!user) {
-
             toast.error("Login first to apply")
         }
     }
@@ -74,7 +74,8 @@ const Admission = () => {
                     <p className="py-4 text-red-500 text-center">Press ESC or Click Outside of Modal to close</p>
                     <div className="flex flex-col gap-3">
                         <input type="text" value={id} {...register("applied_id")}
-                            className="hidden "
+                            className="opacity-0  "
+
                         />
 
                         <input type="url" defaultValue={user?.photoURL} placeholder="Your Photo URL" {...register("image", { required: true })}

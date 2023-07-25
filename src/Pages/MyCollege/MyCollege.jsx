@@ -38,6 +38,25 @@ const MyCollege = () => {
 
         }
     };
+    const handleFeedback = (e) => {
+        e.preventDefault();
+        const feedbackValue = e.target.feedback.value;
+        const feedback = {
+            name: myCollege?.name,
+            testimonial: feedbackValue,
+            email: user?.email
+        }
+        fetch("http://localhost:5000/testimonial", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(feedback)
+        }).then(res => res.json()).then(data => {
+            console.log(data)
+            toast.success("Feedback Successful")
+        })
+    }
+
+
     return (
 
         <div>
@@ -105,6 +124,13 @@ const MyCollege = () => {
                         onChange={handleRatingChange}
                     />
                     <p>Your rating: {userRating || applied?.rating}</p>
+
+
+                    <form className="flex flex-col justify-center items-center gap-2" onSubmit={handleFeedback}>
+                        <textarea name="feedback" className="textarea textarea-bordered w-full max-w-xl mt-5 mx-auto" placeholder="Leave your Feedback"></textarea>
+                        <button className="btn text-[#ff6f26] border-2 font-semibold border-[#ff6f26] mx-auto rounded-lg hover:bg-[#ff6f26] hover:text-white" type="submit">Submit</button>
+                    </form>
+
                 </div>
 
 

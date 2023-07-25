@@ -10,7 +10,7 @@ const CollegesData = () => {
     const graduate = Colleges.filter((college) => college.graduate_group)
 
 
-    return [TopColleges, Colleges, setSearchQ, searchQ,graduate]
+    return [TopColleges, Colleges, setSearchQ, searchQ, graduate]
 };
 
 export default CollegesData;
