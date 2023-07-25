@@ -16,7 +16,7 @@ const Admission = () => {
         if (data.subject === "Your Subject" || data.mobile_number === "" || data.image === "" || data.name === "") {
             toast.error("Please Fill up all input fields")
         } else {
-            fetch('https://collegeconnect-orpin.vercel.appapply', {
+            fetch('https://collegeconnect-orpin.vercel.app/apply', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

@@ -13,7 +13,7 @@ const MyCollege = () => {
 
     if (user) {
         useEffect(() => {
-            fetch(`https://collegeconnect-orpin.vercel.appapply?email=${user.email}`).then(res => res.json()).then(data => {
+            fetch(`https://collegeconnect-orpin.vercel.app/apply?email=${user.email}`).then(res => res.json()).then(data => {
                 SetApplied(data.appliedData)
                 SetCollege(data.collegeData)
             })
@@ -29,7 +29,7 @@ const MyCollege = () => {
             const email = user.email
             const updateData = { rating: newRating, email: email }
             if (email && newRating) {
-                fetch("https://collegeconnect-orpin.vercel.appupdateRating", {
+                fetch("https://collegeconnect-orpin.vercel.app/updateRating", {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(updateData)
@@ -46,7 +46,7 @@ const MyCollege = () => {
             testimonial: feedbackValue,
             email: user?.email
         }
-        fetch("https://collegeconnect-orpin.vercel.apptestimonial", {
+        fetch("https://collegeconnect-orpin.vercel.app/testimonial", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(feedback)

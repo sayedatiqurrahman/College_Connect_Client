@@ -9,11 +9,14 @@ import Login from "../Pages/Login/Login";
 import CollegeDetails from "../Pages/CollegeDetails";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./privateRoute";
+import ErrorPage from "../components/ErrorPage";
+import Loading from "../components/Loading";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -31,7 +34,7 @@ const router = createBrowserRouter([
             {
                 path: "/collegeDetails/:id",
                 element: <PrivateRoute><CollegeDetails /></PrivateRoute>,
-                loader: ({ params }) => fetch(`https://collegeconnect-orpin.vercel.appcollegeDetails/${params.id}`)
+                loader: ({ params }) => fetch(`https://collegeconnect-orpin.vercel.app/collegeDetails/${params.id}`)
             }
             , {
                 path: "/login",
@@ -40,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "/signUp",
                 element: <SignUp />
+            },
+            {
+                path: "/loading",
+                element: <Loading />
             }
         ]
     },
