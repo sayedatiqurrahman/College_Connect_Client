@@ -9,14 +9,18 @@ import { toast } from "react-hot-toast";
 const MyCollege = () => {
     const { user } = useContext(AuthContext)
     const [myCollege, SetCollege] = useState()
+    const [applied, SetApplied] = useState()
 
     if (user) {
         useEffect(() => {
-            fetch(`http://localhost:5000/apply?email=${user.email}`).then(res => res.json()).then(data => SetCollege(data))
+            fetch(`http://localhost:5000/apply?email=${user.email}`).then(res => res.json()).then(data => {
+                SetApplied(data.appliedData)
+                SetCollege(data.collegeData)
+            })
         }, [user])
     }
 
-    console.log(myCollege);
+    console.log("applied", applied);
 
     const [userRating, setUserRating] = useState(0);
     const handleRatingChange = (newRating) => {
@@ -94,13 +98,13 @@ const MyCollege = () => {
                 <div className="text-center">
                     <h2 className="text-3xl text-[#ff6f26] mt-10">Rate Your Experience</h2>
                     <Rating className="text-yellow-500"
-                        placeholderRating={userRating}
+                        placeholderRating={userRating || applied?.rating}
                         emptySymbol={<FaRegStar size={40} />}
                         placeholderSymbol={<FaStar size={40} />}
                         fullSymbol={<FaStar size={40} />}
                         onChange={handleRatingChange}
                     />
-                    <p>Your rating: {userRating}</p>
+                    <p>Your rating: {userRating || applied?.rating}</p>
                 </div>
 
 
