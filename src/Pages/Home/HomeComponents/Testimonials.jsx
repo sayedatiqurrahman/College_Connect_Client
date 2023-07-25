@@ -14,7 +14,7 @@ import { Pagination } from "swiper/modules";
 const Testimonials = () => {
     const [testimonials, setTestimonials] = useState([])
     useEffect(() => {
-        fetch("http://localhost:5000/testimonials").then(res => res.json()).then(data => setTestimonials(data))
+        fetch("https://collegeconnect-orpin.vercel.apptestimonials").then(res => res.json()).then(data => setTestimonials(data))
     }, [])
     console.log("inside tes:", testimonials)
     return (

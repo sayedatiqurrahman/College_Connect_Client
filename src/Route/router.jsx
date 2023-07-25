@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             {
                 path: "/collegeDetails/:id",
                 element: <PrivateRoute><CollegeDetails /></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/collegeDetails/${params.id}`)
+                loader: ({ params }) => fetch(`https://collegeconnect-orpin.vercel.appcollegeDetails/${params.id}`)
             }
             , {
                 path: "/login",

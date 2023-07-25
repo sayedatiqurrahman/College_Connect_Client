@@ -4,7 +4,7 @@ import SectionTitle from '../../../components/SectionTitle';
 const Research = () => {
     const [researchPaper, setResearchPaper] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/research-paper')
+        fetch('https://collegeconnect-orpin.vercel.appresearch-paper')
             .then(res => res.json())
             .then(data => setResearchPaper(data));
     }, []);
