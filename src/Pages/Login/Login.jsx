@@ -22,7 +22,7 @@ const Login = () => {
     };
 
     const googleSign = () => {
-        loginWithGoogle().then(() => toast.success("Sign in Successfully"))
+        loginWithGoogle().then(() => toast.success(`Sign in Successfully`))
     }
 
     const GitHubSign = () => {
@@ -33,7 +33,7 @@ const Login = () => {
     const onSubmit = data => {
         const email = data.email
         const password = data.password
-        loginWithEmailAndPassword(email, password).then(() => toast.success("Sign in Successfully")).catch((error) => {
+        loginWithEmailAndPassword(email, password).then(() => toast.success(user.displayName, "Sign in Successfully")).catch((error) => {
             toast.error(error.message)
         })
     };

@@ -4,7 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { useContext } from "react";
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
-    // const { photoURL, email, displayName } = user
+
     const menu = <>
         <li>  <NavLink className={({ isActive }) => isActive ? "active" : "default"} to={'/'}>Home</NavLink></li>
         <li>  <NavLink className={({ isActive }) => isActive ? "active" : "default"} to={'/colleges'}>Colleges</NavLink></li>
@@ -34,9 +34,9 @@ const Navbar = () => {
             <div className="navbar-end">
 
                 {
-                    user ? <div className="dropdown dropdown-end z-20">
+                    user ? <div className="dropdown dropdown-end z-20 ">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
+                            <div className="w-10  border border-[#f5864e] rounded-full">
                                 <img src={user?.photoURL} />
                             </div>
                         </label>
