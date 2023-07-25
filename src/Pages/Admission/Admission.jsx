@@ -13,18 +13,23 @@ const Admission = () => {
     // Use Hook Form
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-        fetch('http://localhost:5000/apply', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+        if (data.subject === "Your Subject" || data.mobile_number === "" || data.image === "" || data.name === "") {
+            toast.error("Please Fill up all input fields")
+        } else {
+            fetch('http://localhost:5000/apply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
 
-        }).then(response => response.json()).then(data => {
-            console.log(data)
-            if (data.insertedId) {
-                toast.success('Toys Added Successfully')
-            }
-        });
-        reset()
+            }).then(response => response.json()).then(data => {
+                console.log(data)
+                if (data.insertedId) {
+                    toast.success('Toys Added Successfully')
+                }
+            });
+            reset()
+        }
+
     };
     const [, Colleges] = CollegesData()
     const [id, setId] = useState("");

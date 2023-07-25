@@ -26,11 +26,11 @@ const router = createBrowserRouter([
                 element: <Admission />
             }, {
                 path: "/my-college",
-                element: <MyCollege />
+                element: <PrivateRoute><MyCollege /></PrivateRoute>
             },
             {
                 path: "/collegeDetails/:id",
-                element: <PrivateRoute><CollegeDetails /></PrivateRoute> ,
+                element: <PrivateRoute><CollegeDetails /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/collegeDetails/${params.id}`)
             }
             , {
