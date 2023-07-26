@@ -87,6 +87,9 @@ const Admission = () => {
                         <input type="email" value={user?.email} placeholder="Email" {...register("email")}
                             className="input input-bordered border-[#ff6f26] w-full "
                         />
+                        <input required type="date" {...register("date-of-birth")}
+                            className="input input-bordered border-[#ff6f26] w-full "
+                        />
                         <input type="tel" placeholder="mobile_number" {...register("mobile_number")} className="input input-bordered border-[#ff6f26] w-full "
                         />
 
