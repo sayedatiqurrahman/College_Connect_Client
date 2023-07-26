@@ -3,28 +3,74 @@ import SectionTitle from '../../components/SectionTitle';
 import useAppliedData from '../../DataHouse/useAppliedData';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
+import axios from 'axios';
+import { getAuth, updateProfile } from "firebase/auth";
+import { app } from '../../Firebase/firebase.config';
+import { AuthContext } from '../../provider/AuthProvider';
+
 const Profile = () => {
+    const auth = getAuth(app)
     const [myCollege, applied, user, updatePer, setUpdatePer] = useAppliedData();
     const navigate = useNavigate();
-    const [up, setUp] = useState(false)
+    const [up, setUp] = useState(false);
     const { register, handleSubmit } = useForm();
 
     const onSubmit = data => {
         console.log(data);
+        const name = data.name;
+        const image = data.image[0];
+        const allData = data;
+        if (!image) {
+            alert("please upload the image");
+            return;
+        } else {
+            const apiKey = import.meta.env.VITE_IMGBB;
+            const formData = new FormData();
+            formData.append('image', image);
 
-        fetch('https://collegeconnect-orpin.vercel.app/updateData', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        }).then(response => response.json()).then(data => {
-            console.log(data);
-            if (data.modifiedCount > 0) {
-                toast.success('Info Updated Successfully');
-            }
-        });
+            axios.post(`https://api.imgbb.com/1/upload?key=${apiKey}`, formData)
+                .then((response) => {
+                    // Handle the API response here
+
+                    const url = response.data.data.display_url;
+                    if (url) {
+                        // Using the `user` variable instead of `result`
+                        if (user) {
+                            updateProfile(auth.currentUser, {
+                                displayName: name,
+                                photoURL: url
+                            }).then(() => {
+                                const { name, email, url, date_of_birth, mobile_number } = allData;
+                                const updateData = {
+                                    name,
+                                    email,
+                                    image: url,
+                                    date_of_birth,
+                                    mobile_number
+                                };
+                                console.log(updateData);
+                                fetch('https://collegeconnect-orpin.vercel.app/updateData', {
+                                    method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(updateData)
+                                }).then(response => response.json()).then(data => {
+                                    console.log(data);
+                                    if (data.modifiedCount > 0) {
+                                        toast.success('Info Updated Successfully');
+                                    }
+                                });
+
+                            }).catch((error) => {
+                                toast.error(error.message);
+                            });
+                        }
+                    }
+                }).catch((error) => {
+                    toast.error(error.message);
+                });
+        }
     };
-
 
 
     return (
@@ -87,9 +133,9 @@ const Profile = () => {
 
                         /> */}
 
-                        <input type="url" defaultValue={applied?.image || user?.photoURL} placeholder="Your Photo URL" {...register("image", { required: true })}
-                            className="input input-bordered border-[#ff6f26] w-full "
-                        />
+                        <input type="file" {...register("image", { required: true })}
+                            className="file-input file-input-bordered  border-[#ff6f26] w-full" />
+
                         <input type="text" defaultValue={applied?.name || user?.displayName} placeholder="Your Name" {...register("name")}
                             className="input input-bordered border-[#ff6f26] w-full "
                         />
