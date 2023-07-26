@@ -35,6 +35,9 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
 
+    // this state is for updating college data
+    const [updatePer, setUpdatePer] = useState(false);
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -56,7 +59,9 @@ const AuthProvider = ({ children }) => {
         loginWithGitHub,
         resetPassword,
         registerUser,
-        loginWithEmailAndPassword
+        loginWithEmailAndPassword,
+        setUpdatePer,
+        updatePer
     }
     return (
         <AuthContext.Provider value={allInfo}>

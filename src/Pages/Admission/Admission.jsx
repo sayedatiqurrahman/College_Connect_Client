@@ -1,15 +1,19 @@
-import { Link } from "react-router-dom";
 import CollegesData from "../../DataHouse/CollegesData";
 import SectionTitle from "../../components/SectionTitle";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from 'react-hook-form';
-import { AuthContext } from "../../provider/AuthProvider";
+
 import toast, { Toaster } from "react-hot-toast";
+import useAppliedData from "../../DataHouse/useAppliedData";
 
 const Admission = () => {
-    const { user } = useContext(AuthContext)
 
+    const [, , user, updatePer, setUpdatePer] = useAppliedData()
+    console.log(updatePer);
     // Use Hook Form
+    const [, Colleges] = CollegesData()
+    const [id, setId] = useState("");
+    const [cName, setCName] = useState("");
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
         console.log(data);
@@ -17,28 +21,31 @@ const Admission = () => {
             toast.error("Please Fill up all input fields")
         } else {
             fetch('https://collegeconnect-orpin.vercel.app/apply', {
-                method: 'POST',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
 
             }).then(response => response.json()).then(data => {
                 console.log(data)
-                if (data.insertedId) {
-                    toast.success('Toys Added Successfully')
+                if (data.upsertedCount > 0) {
+                    toast.success('College Selected Successfully')
+                    setUpdatePer(false)
+                } else if (data.modifiedCount > 0) {
+                    toast.success('College Updated Successfully')
+                    setUpdatePer(false)
                 }
             });
             reset()
         }
 
     };
-    const [, Colleges] = CollegesData()
-    const [id, setId] = useState("");
-    const [cName, setCName] = useState("");
+
     const admissionApply = () => {
         if (!user) {
             toast.error("Login first to apply")
         }
     }
+
     return (
         <div className="MyContainer">
             <SectionTitle title={"Admission Page"} subTitle={"Unlocking Your Potential: Your Journey Starts Here!"} />
@@ -52,7 +59,7 @@ const Admission = () => {
                         <h2 className="card-title text-3xl font-semibold text-white">{college.name}</h2>
 
                         <div className="card-actions">
-                            <button className='btn text-[#ff6f26] border-2 font-semibold border-[#ff6f26] px-4 py-2  rounded-lg hover:bg-[#ff6f26] hover:text-white'
+                            {updatePer && <button className='btn text-[#ff6f26] border-2 font-semibold border-[#ff6f26] px-4 py-2  rounded-lg hover:bg-[#ff6f26] hover:text-white'
                                 onClick={() => {
                                     admissionApply()
                                     if (user) {
@@ -61,13 +68,13 @@ const Admission = () => {
                                         setCName(college.name)
                                     }
                                 }}
-                            >Apply Now</button>
+                            >Apply Now</button>}
                         </div>
                     </div>
                 </div>)}
             </div>
             {/* the modal code */}
-            {user && <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+            {(user && updatePer) && <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                 {/* Remove the inner <form> element */}
                 <form method="dialog" className="modal-box" onSubmit={handleSubmit(onSubmit)}>
                     <h3 className="font-bold text-lg">Hello!</h3>
@@ -87,7 +94,7 @@ const Admission = () => {
                         <input type="email" value={user?.email} placeholder="Email" {...register("email")}
                             className="input input-bordered border-[#ff6f26] w-full "
                         />
-                        <input required type="date" {...register("date-of-birth")}
+                        <input required type="date" {...register("date_of_birth")}
                             className="input input-bordered border-[#ff6f26] w-full "
                         />
                         <input type="tel" placeholder="mobile_number" {...register("mobile_number")} className="input input-bordered border-[#ff6f26] w-full "
