@@ -25,7 +25,7 @@ const useAppliedData = () => {
         }
     }, [user]);
 
-    return [myCollege, applied, user, updatePer, setUpdatePer];
+    return [myCollege, applied, user, updatePer, setUpdatePer, loading];
 };
 
 export default useAppliedData

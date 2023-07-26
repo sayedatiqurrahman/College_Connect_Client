@@ -6,10 +6,12 @@ import { useForm } from 'react-hook-form';
 import toast, { Toaster } from "react-hot-toast";
 import useAppliedData from "../../DataHouse/useAppliedData";
 
+
 const Admission = () => {
 
-    const [, , user, updatePer, setUpdatePer] = useAppliedData()
+    const [, applied, user, updatePer, setUpdatePer, loading] = useAppliedData()
     console.log(updatePer);
+
     // Use Hook Form
     const [, Colleges] = CollegesData()
     const [id, setId] = useState("");
@@ -43,6 +45,12 @@ const Admission = () => {
     const admissionApply = () => {
         if (!user) {
             toast.error("Login first to apply")
+        }
+    }
+
+    if (!loading) {
+        if (!applied) {
+            setUpdatePer(true)
         }
     }
 
